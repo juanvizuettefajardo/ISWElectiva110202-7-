@@ -10,13 +10,16 @@ const FormularioUsuario = () => {
     nombre: "",
     correo: "",
     contrasena: "",
+    rol_id: "",
   });
 
   const [usuarios, setUsuarios] = useState([]);
   const [mensaje, setMensaje] = useState("");
+  const [roles, setRoles] = useState([]);
 
   useEffect(() => {
     getUsuarios().then(setUsuarios);
+    getRoles().then(setRoles);
   }, []);
 
   const handleChange = (e) => {
@@ -30,13 +33,17 @@ const FormularioUsuario = () => {
       return;
     }
 
-    // Asegúrate de que 'rol_id' esté presente y enviado correctamente
     const data = {
       nombre: form.nombre,
       correo: form.correo,
       contrasena: form.contrasena,
-      rol_id: 1, // Asignar un valor predeterminado para rol_id
+      rol_id: parseInt(form.rol_id),
     };
+
+    if (!form.rol_id) {
+      setMensaje("Debes seleccionar un rol.");
+      return;
+    }
 
     await createUsuario(data);
     setMensaje("Usuario guardado correctamente.");
@@ -45,7 +52,7 @@ const FormularioUsuario = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white p-4">
+    <div className="min-h-screen bg-white p-6">
       <div className="mt-6">
         <div className="bg-[#CCE6CC] border border-black p-6 mb-6 rounded-lg">
           <h2 className="text-center uppercase font-bold text-xl mb-4 text-[#FFA500]">
@@ -83,6 +90,22 @@ const FormularioUsuario = () => {
                 className="w-full px-3 py-2 bg-[#D9D9D9] border border-black rounded"
               />
             </div>
+            <div>
+              <label className="font-block mb-1">ROL</label>
+              <select
+                name="rol_id"
+                value={form.rol_id}
+                onChange={handleChange}
+                className="w-full px-3 py-2 bg-[#D9D9D9] border-black rounded"
+              >
+                <option value="">Selecciona un rol</option>
+                {roles.map((r) => (
+                  <option key={r.id} value={r.id}>
+                    {r.nombre}
+                  </option>
+                ))}
+              </select>
+            </div>
             <button
               type="submit"
               className="w-36 h-10 bg-[#00CCFF] border border-black uppercase font-bold rounded"
@@ -110,7 +133,6 @@ const FormularioUsuario = () => {
                     CORREO ELECTRÓNICO
                   </th>
                   <th className="border border-black p-2">ROL</th>
-                  <th className="border border-black p-2">CONTRASEÑA</th>
                 </tr>
               </thead>
               <tbody>
@@ -124,7 +146,7 @@ const FormularioUsuario = () => {
                   usuarios.map((u) => (
                     <tr key={u.id} className="even:bg-gray-50">
                       <td className="border border-black p-2">{u.nombre}</td>
-                      <td className="border border-black p-2">{u.email}</td>
+                      <td className="border border-black p-2">{u.correo}</td>
                       <td className="p-2 border border-black">
                         {u.rol_nombre}
                       </td>

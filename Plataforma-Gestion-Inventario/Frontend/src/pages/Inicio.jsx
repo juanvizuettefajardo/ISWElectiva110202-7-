@@ -15,6 +15,21 @@ export default function Inicio() {
           <li>
             <Link to="/registrar-usuario">Registrar Usuario</Link>
           </li>
+          <li>
+            <Link to="/registro-formulario">Registro</Link>
+          </li>
+          <li>
+            <Link to="/lista-inventario">Inventario</Link>
+          </li>
+          <li>
+            <Link to="/generar-reporte">Reporte</Link>
+          </li>
+          <li>
+            <Link to="/informes">Informe</Link>
+          </li>
+          <li>
+            <Link to="/historial-transferencias">Historial Transferencias</Link>
+          </li>
         </ul>
       </nav>
     </div>
