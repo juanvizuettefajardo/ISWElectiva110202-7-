@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class RegistrosConfig(AppConfig):
+class GestionmovimientosConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'Registros'
+    name = 'GestionMovimientos'
